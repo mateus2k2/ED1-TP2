@@ -62,25 +62,66 @@ void ordenarUPAS(TADupa *upas, int qtd){
     }
 }
 
+void troca(TADupa *upas, int i, int j){
+    int emergencia;
+    int urgencia;
+    int semUrgencia;
+    char nome[100];
+    
+    emergencia = (upas)[i].emergencia;
+    (upas)[i].emergencia = (upas)[j].emergencia;
+    (upas)[j].emergencia = emergencia;
+
+    urgencia = (upas)[i].urgencia;
+    (upas)[i].urgencia = (upas)[j].urgencia;
+    (upas)[j].urgencia = urgencia;
+
+    semUrgencia = (upas)[i].semUrgencia;
+    (upas)[i].semUrgencia = (upas)[j].semUrgencia;
+    (upas)[j].semUrgencia = semUrgencia;
+
+    strcpy(nome, (upas)[i].nome);
+    strcpy((upas)[i].nome, (upas)[j].nome);
+    strcpy((upas)[j].nome, nome);
+
+}
+
+int compara(TADupa *upas, int i, TADupa tmp){
+
+//retorna 1 se i for maior que tmp
+//retorna -1 se i for menor que tmp
+//retorna 0 se i for igual a tmp
+
+
+
+
+}
+
 
 void quick_sort(TADupa *upas, int left, int right) {
-    int i, j, x, y;
+    int i = left;
+    int j = right;
+
+    TADupa tmp;
+
+    tmp.emergencia = upas[(left + right) / 2].emergencia;
+    tmp.urgencia = upas[(left + right) / 2].urgencia;
+    tmp.semUrgencia = upas[(left + right) / 2].semUrgencia;
+    tmp.pessoal = upas[(left + right) / 2].pessoal;
+    strcpy(tmp.nome, upas[(left + right) / 2].nome);
      
-    i = left;
-    j = right;
-    x = (upas)[(left + right) / 2].emergencia;
-     
+
     while(i <= j) {
-        while((upas)[i].emergencia < x && i < right) {
+        //saber se o "i" é maior que o "tmp"
+        while(compara(upas, i, tmp) == 1 && i < right) {
             i++;
         }
-        while((upas)[j].emergencia > x && j > left) {
+        //saber se o "i" é menor que o "tmp"
+        while(compara(upas, i, tmp) == -1 && j > left) {
             j--;
         }
         if(i <= j) {
-            y = (upas)[i].emergencia;
-            (upas)[i].emergencia = (upas)[j].emergencia;
-            (upas)[j].emergencia = y;
+            troca(upas, i, j);
             i++;
             j--;
         }
