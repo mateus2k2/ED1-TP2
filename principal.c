@@ -18,6 +18,8 @@ gcc *.c -o exe -Wall
 
 int main(){
 
+    clock_t tic = clock();
+
     TADupa* upas;
     int qtd;
 
@@ -27,6 +29,10 @@ int main(){
     lerUPAS(upas, qtd);
     ordenarUPAS(upas, qtd);
     desalocaUPAS(&upas);
+
+    clock_t toc = clock();
+
+    printf("Elapsed: %f seconds\n", (double)(toc - tic) / CLOCKS_PER_SEC);
 
     return 0;
 }
